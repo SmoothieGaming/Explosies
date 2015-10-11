@@ -5,11 +5,32 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprites name="player">
+      <sprite>sprites\spr_player</sprite>
+      <sprite>sprites\spr_player_falling</sprite>
+      <sprite>sprites\spr_player_jumping</sprite>
+      <sprite>sprites\spr_player_wall_slide</sprite>
+      <sprite>sprites\spr_player_running</sprite>
+      <sprite>sprites\spr_player_walking</sprite>
+      <sprite>sprites\spr_player_sliding</sprite>
+      <sprite>sprites\spr_player_idle</sprite>
+    </sprites>
+    <sprite>sprites\spr_platform</sprite>
+    <sprite>sprites\part_death</sprite>
+  </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <objects name="objects">
+    <object>objects\obj_platform</object>
+    <object>objects\obj_player</object>
+    <object>objects\obj_control</object>
+    <object>objects\par_death</object>
+    <object>objects\par_collide</object>
+    <object>objects\par_platform</object>
+  </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\rm_test</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
