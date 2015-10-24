@@ -34,6 +34,7 @@ frict = acc/2;
 jump_height = acc*25;
 spd = room_speed*0.1;
 grav = room_speed*0.02;
+hp = 2;
 
 
 //initialize controls
@@ -42,6 +43,8 @@ bt_left = ord('A');
 bt_up = ord('W');
 bt_down = ord('S');
 
+//create light source at player;
+player_light = instance_create(x, y, obj_light);
 </string>
           </argument>
         </arguments>
@@ -184,9 +187,12 @@ if(place_meeting(x, y, par_death) || place_meeting(x, y, par_collide)){
           <argument>
             <kind>1</kind>
             <string>///animate
+//flip image to simulate turning
 if image_xscale != sign(xv) &amp;&amp; sign(xv) != 0{
     image_xscale = sign(xv);
 }
+
+//set the apropraite sprite
 if sliding{
     sprite_index = spr_player_sliding;
 }else if standing{
@@ -209,13 +215,15 @@ if sliding{
     }  
 }
 
-
+//adjust light position
+player_light.x = x;
+player_light.y = y;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -232,8 +240,8 @@ if sliding{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
-draw_text(16,16,wall);
+            <string>draw_sprite_stretched(spr_heart_container, hp, (view_wview[0]/4)*2, 640, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
+
 </string>
           </argument>
         </arguments>

@@ -18,18 +18,39 @@
     </sprites>
     <sprite>sprites\spr_platform</sprite>
     <sprite>sprites\part_death</sprite>
+    <sprite>sprites\spr_heart_container</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\caster_draw.gml</script>
+    <script>scripts\caster_init.gml</script>
+    <script>scripts\light_draw.gml</script>
+    <script>scripts\light_init.gml</script>
+    <script>scripts\light_update.gml</script>
+    <script>scripts\lightmap_draw.gml</script>
+    <script>scripts\lightmap_init.gml</script>
+    <script>scripts\lightmap_update.gml</script>
+  </scripts>
   <objects name="objects">
+    <objects name="these are just for code">
+      <object>objects\obj_control</object>
+      <objects name="parents">
+        <object>objects\par_platform</object>
+        <object>objects\par_collide</object>
+        <object>objects\par_death</object>
+      </objects>
+      <objects name="light stuff">
+        <object>objects\obj_light</object>
+        <object>objects\obj_lightmap</object>
+        <object>objects\obj_shadowcaster</object>
+      </objects>
+    </objects>
     <object>objects\obj_platform</object>
     <object>objects\obj_player</object>
-    <object>objects\obj_control</object>
-    <object>objects\par_death</object>
-    <object>objects\par_collide</object>
-    <object>objects\par_platform</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_init</room>
     <room>rooms\rm_test</room>
   </rooms>
   <help>
