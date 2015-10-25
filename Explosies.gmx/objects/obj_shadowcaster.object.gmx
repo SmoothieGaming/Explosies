@@ -48,7 +48,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>caster_draw();
+            <string>//caster_draw();
 </string>
           </argument>
         </arguments>

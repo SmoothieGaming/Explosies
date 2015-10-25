@@ -26,15 +26,19 @@
           <argument>
             <kind>1</kind>
             <string>///initialize variables
-xv = 0;
-yv = 0;
-standing = 0;
-acc = room_speed*0.009;
+acc = room_speed*0.005;
 frict = acc/2;
 jump_height = acc*25;
 spd = room_speed*0.1;
 grav = room_speed*0.02;
-hp = 2;
+hp = 3;
+max_jump_frames = 10;
+
+xv = 0;
+yv = 0;
+standing = 0;
+jump_frames = 0;
+
 
 
 //initialize controls
@@ -75,7 +79,7 @@ if pause{
 
 //check for player input
 var x_input = keyboard_check(bt_right) - keyboard_check(bt_left);
-var y_input = keyboard_check(bt_down) - keyboard_check_pressed(bt_up);
+var y_input = keyboard_check(bt_down) - keyboard_check(bt_up);
 
 //check for adjecent wall
 wall = 0;
@@ -86,6 +90,7 @@ if y_input != 1{
     wall = -1
     }
 }
+
 // check if sliding
 var sliding;
 sliding = false;
@@ -113,19 +118,25 @@ if abs(xv) &lt; frict{
 //aply gravity
 if wall != 0 &amp;&amp; yv &gt; 0 {
     yv = 0
-    yv += grav*0.5
+    yv += grav;
 }else{
     yv += grav;
 }
 
+//decrease jump frames
+jump_frames -= 1; 
 
 //jump
-if y_input == -1  {
-    if standing{
+if y_input == -1 {
+    if standing &amp;&amp; keyboard_check_pressed(bt_up){
+        jump_frames = max_jump_frames;
         yv = -jump_height;
-    }else if wall != 0{
-        yv = -jump_height*0.75;
-        xv = -wall*acc*10;
+    }else if wall != 0 &amp;&amp; keyboard_check_pressed(bt_up){
+        jump_frames = max_jump_frames;
+        yv = -jump_height;
+        xv = -wall*spd;
+    }else if jump_frames &gt; 0{
+        yv = -jump_height;
     }
 }
 //reset standing
@@ -241,7 +252,7 @@ player_light.y = y;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_stretched(spr_heart_container, hp, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
+            <string>draw_sprite_stretched(spr_heart_container, hp - 1, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
 
 </string>
           </argument>
