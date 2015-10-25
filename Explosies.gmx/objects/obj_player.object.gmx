@@ -75,7 +75,7 @@ if pause{
 
 //check for player input
 var x_input = keyboard_check(bt_right) - keyboard_check(bt_left);
-var y_input = keyboard_check(bt_down) - keyboard_check(bt_up);
+var y_input = keyboard_check(bt_down) - keyboard_check_pressed(bt_up);
 
 //check for adjecent wall
 wall = 0;
@@ -112,7 +112,8 @@ if abs(xv) &lt; frict{
 
 //aply gravity
 if wall != 0 &amp;&amp; yv &gt; 0 {
-    yv += grav-frict;
+    yv = 0
+    yv += grav*0.5
 }else{
     yv += grav;
 }
@@ -240,7 +241,7 @@ player_light.y = y;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_stretched(spr_heart_container, hp, (view_wview[0]/4)*2, 640, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
+            <string>draw_sprite_stretched(spr_heart_container, hp, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
 
 </string>
           </argument>

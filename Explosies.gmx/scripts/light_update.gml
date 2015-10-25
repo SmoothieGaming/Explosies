@@ -1,4 +1,7 @@
 //draw onto the lightsurface created in light_init()
+if !surface_exists(lightsurface){
+    lighsurface = surface_create(room_width, room_height);
+}
 surface_set_target(lightsurface);
 
 //clear the surface

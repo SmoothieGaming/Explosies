@@ -1,11 +1,12 @@
-//check if surface still exists
-if !surface_exists(lightmap){
-    lightmap_init(room_width, room_height, brightness)
-}
-
 //update all lights
 with(obj_light){
     light_update();
+}
+
+//check if surface still exists
+if !surface_exists(lightmap){
+    lightmap = surface_create(room_width, room_height);
+    surface_set_target(lightmap);
 }
 
 //set the surface target

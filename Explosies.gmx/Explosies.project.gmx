@@ -23,14 +23,16 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\caster_draw.gml</script>
-    <script>scripts\caster_init.gml</script>
-    <script>scripts\light_draw.gml</script>
-    <script>scripts\light_init.gml</script>
-    <script>scripts\light_update.gml</script>
-    <script>scripts\lightmap_draw.gml</script>
-    <script>scripts\lightmap_init.gml</script>
-    <script>scripts\lightmap_update.gml</script>
+    <scripts name="lightstuff">
+      <script>scripts\light_update.gml</script>
+      <script>scripts\caster_draw.gml</script>
+      <script>scripts\caster_init.gml</script>
+      <script>scripts\light_draw.gml</script>
+      <script>scripts\light_init.gml</script>
+      <script>scripts\lightmap_draw.gml</script>
+      <script>scripts\lightmap_init.gml</script>
+      <script>scripts\lightmap_update.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="these are just for code">
