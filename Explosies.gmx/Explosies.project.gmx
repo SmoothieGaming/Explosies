@@ -50,6 +50,7 @@
     </objects>
     <object>objects\obj_platform</object>
     <object>objects\obj_player</object>
+    <object>objects\obj_phy_box</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
