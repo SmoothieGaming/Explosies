@@ -26,9 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>///initialize variables
-acc = 1;
+acc = room_speed*0.1;
 frict = acc/2;
-jump_height = acc*25;
+jump_height = acc*room_speed*2;
 spd = room_speed*0.1;
 grav = room_speed*0.02;
 hp = 3;
@@ -38,9 +38,6 @@ xv = 0;
 yv = 0;
 standing = 0;
 jump_frames = 0;
-
-//phisics stuff
-
 
 //initialize controls
 bt_right = ord('D');
@@ -101,29 +98,9 @@ if standing &amp;&amp; y_input = 1{
   
 //calculate xv and yv
 if !sliding{
-    physics_apply_impulse(x, y, 10*x_input, 0);
-}
-/*   
-xv = clamp(xv, -spd, spd);
-
-//apply friction
-if sliding{
-    xv -= sign(xv)*frict* 0.5;
-}else{
-    xv -= sign(xv)*frict;
-}
-if abs(xv) &lt; frict{
-    xv = 0;
+    physics_apply_impulse(x, y, acc*x_input, 0);
 }
 
-//aply gravity
-if wall != 0 &amp;&amp; yv &gt; 0 {
-    yv = 0
-    yv += grav;
-}else{
-    yv += grav;
-}
-*/
 //decrease jump frames
 jump_frames -= 1; 
 
@@ -141,7 +118,7 @@ if y_input == -1 {
 }
 //reset standing
 standing = place_meeting(x, y +1, par_collide);
-/*
+
 // check for collision
 
 if place_meeting(x + xv, y, par_collide){
@@ -160,18 +137,7 @@ if place_meeting(x, y + yv, par_collide){
     }
     yv = 0;
 }
-//collide with platforms
-var_inst = instance_place(x, y + yv, obj_platform);
-if var_inst != noone &amp;&amp; var_inst.y &gt; y &amp;&amp; !keyboard_check(bt_down){
-    while !place_meeting(x, y + sign(yv), par_platform){
-        y += sign(yv);
-    }
-    yv = 0;
-    standing = true;
-}
 
-y += yv;
-*/
 //check for damaging objects
 if(place_meeting(x, y, par_death) || place_meeting(x, y, par_collide)){
     part_particles_create_color(pt_sys, x, y, pt_death, color,50);
