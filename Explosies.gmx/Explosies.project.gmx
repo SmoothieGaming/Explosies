@@ -17,6 +17,8 @@
       <sprite>sprites\spr_player_idle</sprite>
     </sprites>
     <sprite>sprites\spr_platform</sprite>
+    <sprite>sprites\spr_spike</sprite>
+    <sprite>sprites\spr_ramp</sprite>
     <sprite>sprites\part_death</sprite>
     <sprite>sprites\spr_heart_container</sprite>
   </sprites>
@@ -49,6 +51,8 @@
       </objects>
     </objects>
     <object>objects\obj_platform</object>
+    <object>objects\obj_spike</object>
+    <object>objects\obj_ramp</object>
     <object>objects\obj_player</object>
     <object>objects\obj_phy_box</object>
   </objects>

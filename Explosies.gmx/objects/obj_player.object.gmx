@@ -26,18 +26,21 @@
           <argument>
             <kind>1</kind>
             <string>///initialize variables
-acc = room_speed*0.1;
-frict = acc/2;
-jump_height = acc*room_speed*2;
-spd = room_speed*0.1;
-grav = room_speed*0.02;
+acc = 100;
+max_xv = 1;
+jump_force = -150;
 hp = 3;
 max_jump_frames = 10;
 
 xv = 0;
 yv = 0;
 standing = 0;
+sliding = 0;
+wall = 0;
 jump_frames = 0;
+
+phy_fixed_rotation = true;
+
 
 //initialize controls
 bt_right = ord('D');
@@ -79,71 +82,24 @@ if pause{
 var x_input = keyboard_check(bt_right) - keyboard_check(bt_left);
 var y_input = keyboard_check(bt_down) - keyboard_check(bt_up);
 
-//check for adjecent wall
-wall = 0;
-if y_input != 1{
-    if place_meeting(x + 1, y, par_collide){
-    wall = 1
-    }else if place_meeting(x - 1, y, par_collide){
-    wall = -1
+wall = place_meeting(x + 1, y, par_collide) -place_meeting(x - 1, y, par_collide);
+standing = place_meeting(x, y + 1, par_collide)
+if standing {
+    physics_apply_force(x, y, x_input*acc, 0);
+}
+
+if keyboard_check_pressed(bt_up){
+    if standing{
+        physics_apply_impulse(x, y, 0, jump_force);
+        
+    }else if wall != 0{
+        physics_apply_impulse(x, y, acc*-wall, jump_force*0.75);
     }
 }
 
-// check if sliding
-var sliding;
-sliding = false;
-if standing &amp;&amp; y_input = 1{
-    sliding = true;
+if place_meeting(x, y, par_death){
+    hp -= 1;
 }
-  
-//calculate xv and yv
-if !sliding{
-    physics_apply_impulse(x, y, acc*x_input, 0);
-}
-
-//decrease jump frames
-jump_frames -= 1; 
-
-//jump
-if y_input == -1 {
-    if standing &amp;&amp; keyboard_check_pressed(bt_up){
-        jump_frames = max_jump_frames;
-        physics_apply_impulse(x, y, 0, jump_height);
-    }else if wall != 0 &amp;&amp; keyboard_check_pressed(bt_up){
-        jump_frames = max_jump_frames;
-        physics_apply_impulse(x, y, wall*spd, jump_height);
-    }else if jump_frames &gt; 0{
-        physics_apply_impulse(x, y, 0, jump_height);
-    }
-}
-//reset standing
-standing = place_meeting(x, y +1, par_collide);
-
-// check for collision
-
-if place_meeting(x + xv, y, par_collide){
-    while !place_meeting(x + sign(xv), y, par_collide){
-        x += sign(xv);
-    }
-    xv = 0;
-}
-
-x += xv;
-    
-
-if place_meeting(x, y + yv, par_collide){
-    while !place_meeting(x, y + sign(yv), par_collide){
-        y += sign(yv);
-    }
-    yv = 0;
-}
-
-//check for damaging objects
-if(place_meeting(x, y, par_death) || place_meeting(x, y, par_collide)){
-    part_particles_create_color(pt_sys, x, y, pt_death, color,50);
-    instance_destroy();
-}
-
 </string>
           </argument>
         </arguments>
@@ -219,7 +175,6 @@ player_light.y = y;
           <argument>
             <kind>1</kind>
             <string>draw_sprite_stretched(spr_heart_container, hp - 1, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
-
 </string>
           </argument>
         </arguments>
@@ -230,11 +185,11 @@ player_light.y = y;
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>1</PhysicsObjectShape>
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
-  <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
+  <PhysicsObjectRestitution>0</PhysicsObjectRestitution>
   <PhysicsObjectGroup>1</PhysicsObjectGroup>
   <PhysicsObjectLinearDamping>0</PhysicsObjectLinearDamping>
   <PhysicsObjectAngularDamping>0</PhysicsObjectAngularDamping>
-  <PhysicsObjectFriction>0</PhysicsObjectFriction>
+  <PhysicsObjectFriction>0.100000001490116</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
