@@ -26,11 +26,12 @@
           <argument>
             <kind>1</kind>
             <string>///initialize variables
-acc = 100;
-max_xv = 1;
+acc = 150;
+max_xv = 6;
 jump_force = -150;
 hp = 3;
 max_jump_frames = 10;
+wall_slide_speed = 1;
 
 xv = 0;
 yv = 0;
@@ -84,16 +85,24 @@ var y_input = keyboard_check(bt_down) - keyboard_check(bt_up);
 
 wall = place_meeting(x + 1, y, par_collide) -place_meeting(x - 1, y, par_collide);
 standing = place_meeting(x, y + 1, par_collide)
-if standing {
-    physics_apply_force(x, y, x_input*acc, 0);
+
+if wall != 0 &amp;&amp; phy_speed_y &gt; wall_slide_speed{
+    phy_speed_y = wall_slide_speed;
+}
+physics_apply_force(x, y, x_input*acc, 0);
+
+if abs(phy_speed_x) &gt; abs( max_xv){
+    phy_speed_x = max_xv*sign(phy_speed_x);
 }
 
 if keyboard_check_pressed(bt_up){
     if standing{
         physics_apply_impulse(x, y, 0, jump_force);
+        part_particles_create(partsys, x + wall*sprite_get_width(spr_player)/2, y, part_slide, 20);
         
     }else if wall != 0{
         physics_apply_impulse(x, y, acc*-wall, jump_force*0.75);
+        part_particles_create(partsys, x + wall*sprite_get_width(spr_player)/2, y, part_slide, 20);
     }
 }
 
@@ -141,7 +150,9 @@ if sliding{
     }
 }else{
     if wall != 0{
+        image_xscale = wall;
         sprite_index  = spr_player_wall_slide;
+        part_particles_create(partsys, x + wall*sprite_get_width(spr_player)/2, y, part_slide, 1);
     }else if yv &lt; -2{
         sprite_index  = spr_player_jumping;
     }else{
@@ -175,6 +186,7 @@ player_light.y = y;
           <argument>
             <kind>1</kind>
             <string>draw_sprite_stretched(spr_heart_container, hp - 1, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
+draw_text(32, 32, phy_speed_x)
 </string>
           </argument>
         </arguments>

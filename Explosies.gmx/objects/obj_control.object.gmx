@@ -119,7 +119,53 @@ if keyboard_check(vk_escape){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(x, y, obj_lightmap);
+            <string>///create lightmap
+instance_create(x, y, obj_lightmap);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///create particle engine at the start of a level
+globalvar partsys;
+globalvar part_slide;
+
+//init partsys
+partsys = part_system_create();
+part_system_depth(partsys, 100);
+
+//add the particle for wall slides
+part_slide = part_type_create();
+
+
+part_type_sprite(part_slide,spr_slide_particle,0,0,0);
+part_type_size(part_slide,1,1,0,0);
+part_type_scale(part_slide,1,1);
+part_type_color1(part_slide,16777215);
+part_type_alpha2(part_slide,1,0);
+part_type_speed(part_slide,0.10,0.50,0,0);
+part_type_direction(part_slide,0,359,1,1);
+part_type_gravity(part_slide,0.01,270);
+part_type_orientation(part_slide,0,359,1,0,1);
+part_type_blend(part_slide,1);
+part_type_life(part_slide,40,80);
+
+
 </string>
           </argument>
         </arguments>
