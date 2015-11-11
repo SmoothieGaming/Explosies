@@ -98,8 +98,7 @@ if abs(phy_speed_x) &gt; abs( max_xv){
 if keyboard_check_pressed(bt_up){
     if standing{
         physics_apply_impulse(x, y, 0, jump_force);
-        part_particles_create(partsys, x + wall*sprite_get_width(spr_player)/2, y, part_slide, 20);
-        
+        part_particles_create(partsys, x , y  + sprite_get_width(spr_player)/2, part_slide, 20);
     }else if wall != 0{
         physics_apply_impulse(x, y, acc*-wall, jump_force*0.75);
         part_particles_create(partsys, x + wall*sprite_get_width(spr_player)/2, y, part_slide, 20);
