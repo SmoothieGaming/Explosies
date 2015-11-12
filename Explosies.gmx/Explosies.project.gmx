@@ -25,7 +25,9 @@
     <sprite>sprites\part_death</sprite>
     <sprite>sprites\spr_heart_container</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bg_template</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="lightstuff">

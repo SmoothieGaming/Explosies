@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///initialize variables
-acc = 150;
+acc = 350;
 max_xv = 6;
 jump_force = -150;
 hp = 3;
@@ -130,8 +130,8 @@ if place_meeting(x, y, par_death){
             <kind>1</kind>
             <string>///animate
 //flip image to simulate turning
-if image_xscale != sign(xv) &amp;&amp; sign(xv) != 0{
-    image_xscale = sign(xv);
+if image_xscale != sign(phy_speed_x) &amp;&amp; sign(phy_speed_x) != 0{
+    image_xscale = sign(phy_speed_x);
 }
 
 //set the apropraite sprite
