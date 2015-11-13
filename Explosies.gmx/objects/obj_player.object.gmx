@@ -39,6 +39,7 @@ standing = 0;
 sliding = 0;
 wall = 0;
 jump_frames = 0;
+target_id = noone;
 
 phy_fixed_rotation = true;
 
@@ -162,6 +163,38 @@ if sliding{
 //adjust light position
 player_light.x = x;
 player_light.y = y;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///telekinesis code
+if mouse_check_button_pressed(mb_left) = true{
+    target_id = instance_position( mouse_x, mouse_y, obj_phy_box)
+}
+if mouse_check_button_released(mb_left) = true{
+    target_id = noone;
+}
+if target_id != noone{
+    with target_id{
+            physics_apply_force(x, y, (mouse_x-x)*10, (mouse_y-y)*10);
+        }
+}
 </string>
           </argument>
         </arguments>
