@@ -25,39 +25,6 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///init particle system
-globalvar pt_sys;
-globalvar pt_death;
-
-pt_sys = part_system_create();
-pt_death =  part_type_create();
-part_system_depth(pt_sys, 1)
-
-part_type_sprite(pt_death, part_death, false, false, true);
-//part_type_colour1(pt_death, c_red);
-part_type_direction(pt_death, 0, 360, 0, 0);
-part_type_life(pt_death, 10, 15);
-part_type_speed(pt_death, 1, 3, 0, 0);
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>///init other things
 globalvar pause;
 globalvar color;
@@ -143,27 +110,36 @@ instance_create(x, y, obj_lightmap);
             <kind>1</kind>
             <string>///create particle engine at the start of a level
 globalvar partsys;
-globalvar part_slide;
+globalvar part_dust, part_force;
 
 //init partsys
 partsys = part_system_create();
 part_system_depth(partsys, 100);
 
 //add the particle for wall slides
-part_slide = part_type_create();
+part_dust = part_type_create();
 
+part_type_sprite(part_dust,spr_part_dust,0,0,0);
+part_type_size(part_dust,1,1,0,0);
+part_type_scale(part_dust,1,1);
+part_type_alpha2(part_dust,0.5,0);
+part_type_speed(part_dust,0.10,0.50,0,0);
+part_type_direction(part_dust,0,359,1,1);
+part_type_gravity(part_dust,0.01,270);
+part_type_orientation(part_dust,0,359,1,0,1);
+part_type_life(part_dust,40,80);
 
-part_type_sprite(part_slide,spr_slide_particle,0,0,0);
-part_type_size(part_slide,1,1,0,0);
-part_type_scale(part_slide,1,1);
-part_type_color1(part_slide,16777215);
-part_type_alpha2(part_slide,1,0);
-part_type_speed(part_slide,0.10,0.50,0,0);
-part_type_direction(part_slide,0,359,1,1);
-part_type_gravity(part_slide,0.01,270);
-part_type_orientation(part_slide,0,359,1,0,1);
-part_type_blend(part_slide,1);
-part_type_life(part_slide,40,80);
+part_force= part_type_create();
+
+part_type_sprite(part_force,spr_part_force,0,0,0);
+part_type_size(part_force,1,1,0,0);
+part_type_scale(part_force,1,1);
+part_type_alpha2(part_force,0.5,0);
+part_type_speed(part_force,0.10,0.50,0,0);
+part_type_direction(part_force,0,359,1,1);
+part_type_gravity(part_force,0.01,270);
+part_type_orientation(part_force,0,359,1,0,1);
+part_type_life(part_force,40,80);
 
 
 </string>
