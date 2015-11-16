@@ -25,7 +25,9 @@
     <sprite>sprites\spr_phy_box</sprite>
     <sprite>sprites\spr_spike</sprite>
     <sprite>sprites\spr_ramp</sprite>
-    <sprite>sprites\spr_heart_container</sprite>
+    <sprite>sprites\spr_health_meter_container</sprite>
+    <sprite>sprites\spr_telekinesis_meter_bar</sprite>
+    <sprite>sprites\spr_telekinesis_meter_container</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_template</background>
@@ -33,11 +35,11 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="lightstuff">
-      <script>scripts\light_update.gml</script>
       <script>scripts\caster_draw.gml</script>
       <script>scripts\caster_init.gml</script>
-      <script>scripts\light_draw.gml</script>
+      <script>scripts\light_update.gml</script>
       <script>scripts\light_init.gml</script>
+      <script>scripts\light_draw.gml</script>
       <script>scripts\lightmap_draw.gml</script>
       <script>scripts\lightmap_init.gml</script>
       <script>scripts\lightmap_update.gml</script>

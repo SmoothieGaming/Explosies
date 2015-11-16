@@ -32,15 +32,17 @@ jump_force = -150;
 hp = 3;
 max_jump_frames = 10;
 wall_slide_speed = 1;
-force = 20;
-telekinesis_range = 500;
+telekinesis_force = 10;
+telekinesis_range = 100;
+telekinesis_stamina = 60;
+telekinesis_recovery = 1;
 
 xv = 0;
 yv = 0;
 standing = 0;
 sliding = 0;
 wall = 0;
-jump_frames = 0;
+telekinesis_exhaustion = 0;
 target_id = noone;
 
 phy_fixed_rotation = true;
@@ -53,7 +55,11 @@ bt_down = ord('S');
 
 //create light source at player;
 player_light = instance_create(x, y, obj_light);
-player_light.range = telekinesis_range;
+with player_light{
+    //set light radius to the range of the player telekinesis
+    radius = obj_player.telekinesis_range;
+    surface_resize(lightsurface, radius*2, radius*2);
+}
 </string>
           </argument>
         </arguments>
@@ -186,10 +192,7 @@ player_light.y = y;
           <argument>
             <kind>1</kind>
             <string>///telekinesis code
-if mouse_check_button_pressed(mb_left) = true{
-    target_id = instance_position( mouse_x, mouse_y, obj_phy_box)
-}
-///set light level while playing;
+//make it darker when using telekinesis
 if mouse_check_button(mb_left){
     if brightness &gt; 0.3 {
         brightness -= 0.01;
@@ -199,13 +202,33 @@ if mouse_check_button(mb_left){
         brightness += 0.01
     }
 }
+
+//check if mouse is within range
+if distance_to_point(mouse_x, mouse_y) &gt; telekinesis_range{
+    target_id = noone;
+    exit;
+}
+
+//pick up object
+if mouse_check_button_pressed(mb_left) = true{
+    target_id = instance_position( mouse_x, mouse_y, obj_phy_box)
+}
+
+//release object
 if mouse_check_button_released(mb_left) = true{
     target_id = noone;
 }
-if target_id != noone{
+
+//move object
+if target_id != noone &amp;&amp; telekinesis_exhaustion &lt; telekinesis_stamina{
+    telekinesis_exhaustion += 1;
     with target_id{
-            physics_apply_force(x, y, (mouse_x-x)*obj_player.force, (mouse_y-y)*obj_player.force);
-        }
+        physics_apply_force(x, y, (mouse_x-x-(sprite_get_width(sprite_index)/2))*obj_player.telekinesis_force, (mouse_y-y-sprite_get_height(sprite_index))*obj_player.telekinesis_force);
+    }
+}else{
+    target_id = noone;
+    telekinesis_exhaustion -= telekinesis_recovery;
+
 }
 </string>
           </argument>
@@ -229,8 +252,13 @@ if target_id != noone{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_stretched(spr_heart_container, hp - 1, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_heart_container)*4, sprite_get_width(spr_heart_container)*2, sprite_get_height(spr_heart_container)*2);
-draw_text(32, 32, phy_speed_x)
+            <string>///draw health and telekinesis meter
+
+//draw health meter
+draw_sprite_stretched(spr_telekinesis_meter_container, 1, (view_wport[0]/4)+sprite_get_width(spr_health_meter_container)*4, view_hport[0]-sprite_get_height(spr_telekinesis_meter_container)*4, sprite_get_width(spr_telekinesis_meter_container)*4, sprite_get_height(spr_telekinesis_meter_container)*4)
+
+//draw telekinesis meter
+draw_sprite_stretched(spr_health_meter_container, 1, view_wport[0]/4, view_hport[0]-sprite_get_height(spr_health_meter_container)*4, sprite_get_width(spr_health_meter_container)*4, sprite_get_height( spr_health_meter_container )*4);
 </string>
           </argument>
         </arguments>
