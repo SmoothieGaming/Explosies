@@ -33,6 +33,7 @@ hp = 3;
 max_jump_frames = 10;
 wall_slide_speed = 1;
 force = 20;
+telekinesis_range = 500;
 
 xv = 0;
 yv = 0;
@@ -52,6 +53,7 @@ bt_down = ord('S');
 
 //create light source at player;
 player_light = instance_create(x, y, obj_light);
+player_light.range = telekinesis_range;
 </string>
           </argument>
         </arguments>
@@ -202,7 +204,6 @@ if mouse_check_button_released(mb_left) = true{
 }
 if target_id != noone{
     with target_id{
-            part_particles_create(partsys, x, y, part_force, 10);
             physics_apply_force(x, y, (mouse_x-x)*obj_player.force, (mouse_y-y)*obj_player.force);
         }
 }

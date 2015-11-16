@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>light_init(256,make_color_rgb(50,50,200),0.7);
+            <string>range = 100
+light_init(range,make_color_rgb(50,50,200),0.7);
 </string>
           </argument>
         </arguments>
